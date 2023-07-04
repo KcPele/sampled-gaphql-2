@@ -8,11 +8,23 @@ const resolvers = {
     games: () => {
       return [...games];
     },
+    game: (_, args) => {
+      const { id } = args;
+      return games.find((game) => game.id == id);
+    },
     reviews: () => {
       return [...reviews];
     },
+    review: (_, args) => {
+      const { id } = args;
+      return reviews.find((review) => review.id == id);
+    },
     authors: () => {
       return [...authors];
+    },
+    author: (_, args) => {
+      const { id } = args;
+      return authors.find((author) => author.id == id);
     },
   },
 };
@@ -21,6 +33,11 @@ const server = new ApolloServer({
   typeDefs,
   //resolvers
   resolvers,
+  cors: {
+    origin: ["http://localhost:4000"],
+    credentials: true, // true if you need cookies/authentication
+    methods: ["GET", "POST", "OPTIONS"],
+  },
 });
 
 const { url } = await startStandaloneServer(server, {
