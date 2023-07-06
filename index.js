@@ -27,6 +27,28 @@ const resolvers = {
       return authors.find((author) => author.id == id);
     },
   },
+  Game: {
+    reviews: (parent) => {
+      const { id } = parent;
+      return reviews.filter((review) => review.game_id == id);
+    },
+  },
+  Author: {
+    reviews: (parent, args) => {
+      const { id } = parent;
+      return reviews.filter((review) => review.author_id == id);
+    },
+  },
+  Review: {
+    game: (parent) => {
+      const { game_id } = parent;
+      return games.find((game) => game.id == game_id);
+    },
+    author: (parent) => {
+      const { author_id } = parent;
+      return authors.find((author) => author.id == author_id);
+    },
+  },
 };
 const server = new ApolloServer({
   //typeDefs
